@@ -1,6 +1,8 @@
 package com.farooq.project_management.controller;
 
+import com.farooq.project_management.entity.Employee;
 import com.farooq.project_management.entity.Project;
+import com.farooq.project_management.repository.EmployeeRepository;
 import com.farooq.project_management.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,9 @@ public class ProjectController {
     @Autowired
     ProjectRepository projectRepository;
 
+    @Autowired
+    EmployeeRepository employeeRepository;
+
     @GetMapping
     public String displayProjects(Model model) {
         List<Project> projects = projectRepository.findAll();
@@ -32,6 +37,10 @@ public class ProjectController {
 
         Project aProject = new Project();
         model.addAttribute("project", aProject);
+
+        List<Employee> employees = employeeRepository.findAll();
+        model.addAttribute("allEmployees", employees);
+
         return "projects/new-project";
     }
 
@@ -41,7 +50,7 @@ public class ProjectController {
         projectRepository.save(project);
 
         // Use a redirect to prevent duplicate submissions
-        return "redirect:/projects/new";
+        return "redirect:/projects";
 
     }
 
