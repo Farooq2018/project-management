@@ -10,7 +10,7 @@ public class Employee {
     @Id
     @SequenceGenerator(name = "employee_generator", sequenceName = "employee_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_generator")
-    private long employeeId;
+    private Long employeeId;
 
     private String firstName;
     private String lastName;
@@ -32,7 +32,7 @@ public class Employee {
         this.email = email;
     }
 
-    public long getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 

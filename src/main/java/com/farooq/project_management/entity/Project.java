@@ -11,7 +11,7 @@ public class Project {
     @Id
     @SequenceGenerator(name = "project_generator", sequenceName = "project_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_generator")
-    private long projectId;
+    private Long projectId;
 
     private String name;
 
@@ -36,7 +36,7 @@ public class Project {
         this.description = description;
     }
 
-    public long getProjectId() {
+    public Long getProjectId() {
         return projectId;
     }
 

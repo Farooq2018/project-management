@@ -15,9 +15,8 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-
     @Autowired
-    private EmployeeRepository employeeRepository;
+    EmployeeRepository employeeRepository;
 
     @GetMapping
     public String displayEmployees(Model model) {
