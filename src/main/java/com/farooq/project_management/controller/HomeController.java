@@ -3,11 +3,12 @@ package com.farooq.project_management.controller;
 import com.farooq.project_management.dto.ChartData;
 import com.farooq.project_management.dto.EmployeeProject;
 import com.farooq.project_management.entity.Project;
-import com.farooq.project_management.repository.EmployeeRepository;
-import com.farooq.project_management.repository.ProjectRepository;
+import com.farooq.project_management.service.EmployeeService;
+import com.farooq.project_management.service.ProjectService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,27 +20,27 @@ import java.util.Map;
 @Controller
 public class HomeController {
 
-//    @Value("${version}")
-//    private String version;
+    @Value("${version}")
+    private String version;
 
     @Autowired
-    ProjectRepository projectRepository;
+    ProjectService projectService;
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    EmployeeService employeeService;
 
     @GetMapping("/")
     public String displayHome(Model model) throws JsonProcessingException {
 
-        //model.addAttribute("envVersion", version);
+        model.addAttribute("envVersion", version);
 
         Map<String, Object> map = new HashMap<>();
         //Querying the database for project
-        List<Project> projects = projectRepository.findAll();
+        List<Project> projects = projectService.getAll();
         model.addAttribute("projectsList", projects);
 
         //Get Project Data
-        List<ChartData> projectData = projectRepository.getProjectStatus();
+        List<ChartData> projectData = projectService.getProjectStatus();
 
         //Convert projectData object into json structure for use in Javascript
         ObjectMapper objectMapper = new ObjectMapper();
@@ -47,7 +48,7 @@ public class HomeController {
         model.addAttribute("projectStatusCount", jsonString);
 
         //Querying the database for employees
-        List<EmployeeProject> employeesProjectCount = employeeRepository.getEmployeeProjects();
+        List<EmployeeProject> employeesProjectCount = employeeService.getEmployeeProjects();
         model.addAttribute("employeesProjectCount", employeesProjectCount);
 
         return "main/home";

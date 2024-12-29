@@ -2,8 +2,8 @@ package com.farooq.project_management.controller;
 
 import com.farooq.project_management.entity.Employee;
 import com.farooq.project_management.entity.Project;
-import com.farooq.project_management.repository.EmployeeRepository;
-import com.farooq.project_management.repository.ProjectRepository;
+import com.farooq.project_management.service.EmployeeService;
+import com.farooq.project_management.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +18,14 @@ import java.util.List;
 public class ProjectController {
 
     @Autowired
-    ProjectRepository projectRepository;
+    ProjectService projectService;
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    EmployeeService employeeService;
 
     @GetMapping
     public String displayProjects(Model model) {
-        List<Project> projects = projectRepository.findAll();
+        List<Project> projects = projectService.getAll();
 
         model.addAttribute("projects", projects);
 
@@ -38,7 +38,7 @@ public class ProjectController {
         Project aProject = new Project();
         model.addAttribute("project", aProject);
 
-        List<Employee> employees = employeeRepository.findAll();
+        List<Employee> employees = employeeService.getAll();
         model.addAttribute("allEmployees", employees);
 
         return "projects/new-project";
@@ -47,7 +47,7 @@ public class ProjectController {
     @PostMapping("/save")
     public String createProject(Project project, Model model) {
 
-        projectRepository.save(project);
+        projectService.save(project);
 
         // Use a redirect to prevent duplicate submissions
         return "redirect:/projects";

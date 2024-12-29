@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
-<head th:replace="layouts :: header"></head>
+<head th:replace="~{layouts :: header}"></head>
 
-<nav th:replace="layouts :: navbar"></nav>
+<nav th:replace="~{layouts :: navbar}"></nav>
 
 <body>
 
 <div class="container">
 
 <h3>Main Dashboard</h3>
-<!--    <p th:text="${envVersion}"></p>-->
+    <p th:text="${envVersion}"></p>
     <hr>
     <h4> Current Projects </h4>
     <div class="row">

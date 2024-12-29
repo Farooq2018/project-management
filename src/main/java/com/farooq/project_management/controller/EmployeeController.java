@@ -1,7 +1,7 @@
 package com.farooq.project_management.controller;
 
 import com.farooq.project_management.entity.Employee;
-import com.farooq.project_management.repository.EmployeeRepository;
+import com.farooq.project_management.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +16,11 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    EmployeeService employeeService;
 
     @GetMapping
     public String displayEmployees(Model model) {
-        List<Employee> employees = employeeRepository.findAll();
+        List<Employee> employees = employeeService.getAll();
 
         model.addAttribute("employees", employees);
 
@@ -38,7 +38,7 @@ public class EmployeeController {
     @PostMapping("/save")
     public String createEmployee(Model model, Employee employee) {
         //save to the database using an employee CRUD repo
-        employeeRepository.save(employee);
+        employeeService.save(employee);
 
         // Use a redirect to prevent duplicate submissions
         return "redirect:/employees/new";
