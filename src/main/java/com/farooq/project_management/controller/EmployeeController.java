@@ -30,7 +30,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/new")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String displayEmployeeForm(Model model) {
 
         Employee anEmployee = new Employee();

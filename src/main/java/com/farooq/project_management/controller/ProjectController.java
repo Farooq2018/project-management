@@ -35,7 +35,7 @@ public class ProjectController {
     }
 
     @GetMapping("/new")
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String displayProjectForm(Model model) {
 
         Project aProject = new Project();
