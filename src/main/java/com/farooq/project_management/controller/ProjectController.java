@@ -5,6 +5,7 @@ import com.farooq.project_management.entity.Project;
 import com.farooq.project_management.service.EmployeeService;
 import com.farooq.project_management.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class ProjectController {
     EmployeeService employeeService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public String displayProjects(Model model) {
         List<Project> projects = projectService.getAll();
 
@@ -33,6 +35,7 @@ public class ProjectController {
     }
 
     @GetMapping("/new")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public String displayProjectForm(Model model) {
 
         Project aProject = new Project();
@@ -45,6 +48,7 @@ public class ProjectController {
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String createProject(Project project, Model model) {
 
         projectService.save(project);
