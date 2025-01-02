@@ -23,4 +23,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     public List<EmployeeProject> getEmployeeProjects();
 
     public Employee findByEmail(String value);
+
+    public Employee findByEmployeeId(Long id);
 }

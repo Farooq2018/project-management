@@ -6,66 +6,72 @@
 <nav th:replace="~{layouts :: navbar}"></nav>
 
 <body>
+<div class="container mt-5">
 
-<div class="container">
-
-<h3>Main Dashboard</h3>
-    <p th:text="${envVersion}"></p>
+    <!-- Dashboard Header -->
+    <h3 class="text-center">Main Dashboard</h3>
+    <p class="text-muted" th:text="'Environment Version: ' + ${envVersion}"></p>
     <hr>
-    <h4> Current Projects </h4>
+
+    <!-- Current Projects Section -->
+    <h4 class="mb-4">Current Projects</h4>
     <div class="row">
         <div class="col-md-6">
-            <table class="table table-bordered table-striped table-dark">
-                <thead class="thead-dark">
-                    <tr>
-                        <th> Project Name </th>
-                        <th> Project Stage </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="aProject : ${projectsList}">
-                        <td th:text="${aProject.name}"/>
-                        <td th:text="${aProject.stage}"/>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="col-md-4">
-            <canvas id="myPieChart" height="50" width="50"></canvas>
-
-            <script>
-                var chartData = "[[${projectStatusCount}]]"
-            </script>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <h4> Current Employees </h4>
-    <div class="row">
-        <div class="col-md-6">
-
-            <table class="table table-bordered table-striped table-dark">
-                <thead class="thead-dark">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark text-center">
                 <tr>
-                    <th> Employee First Name </th>
-                    <th> Employee Last Name </th>
-                    <th> Employee Project Count </th>
+                    <th>Project Name</th>
+                    <th>Project Stage</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="aEmployeeProjectCount : ${employeesProjectCount}">
-                    <td th:text="${aEmployeeProjectCount.firstName}"/>
-                    <td th:text="${aEmployeeProjectCount.lastName}"/>
-                    <td th:text="${aEmployeeProjectCount.projectCount}"></td>
+                <tr th:each="aProject : ${projectsList}" class="text-center">
+                    <td th:text="${aProject.name}"></td>
+                    <td th:text="${aProject.stage}"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
+
+        <!-- Pie Chart -->
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <div>
+                <canvas id="myPieChart" height="200" width="200"></canvas>
+                <script>
+                    var chartData = "[[${projectStatusCount}]]";
+                </script>
+            </div>
+        </div>
     </div>
+
+    <!-- Current Employees Section -->
+    <div class="mt-5">
+        <h4 class="mb-4">Current Employees</h4>
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark text-center">
+                    <tr>
+                        <th>Employee First Name</th>
+                        <th>Employee Last Name</th>
+                        <th>Employee Project Count</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="aEmployeeProjectCount : ${employeesProjectCount}" class="text-center">
+                        <td th:text="${aEmployeeProjectCount.firstName}"></td>
+                        <td th:text="${aEmployeeProjectCount.lastName}"></td>
+                        <td th:text="${aEmployeeProjectCount.projectCount}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </div>
 
+<!-- External JS Script -->
 <script type="text/javascript" th:src="@{myChart.js}"></script>
 </body>
 </html>

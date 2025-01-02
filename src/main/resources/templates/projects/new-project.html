@@ -7,28 +7,57 @@
 
 <nav th:replace="~{layouts :: navbar}"></nav>
 
-    <div class="container">
-        <form th:action="@{/projects/save}" th:object="${project}" method="post">
-            <input type="text" placeholder="Project Name" th:field="${project.name}">
+<br>
 
-            <select th:field="${project.stage}">
-                <option th:value="NOTSTARTED">Not Started</option>
-                <option th:value="INPROGRESS">In Progress</option>
-                <option th:value="COMPLETED">Completed</option>
-            </select>
+<div class="container mt-5">
+    <form th:action="@{/projects/save}" th:object="${project}" method="post">
+        <div class="card shadow-lg p-4">
+            <h3 class="text-center mb-4">Project Form</h3>
+            <div class="form-group row">
+                <!-- Hidden field for binding projectId -->
+                <input type="hidden" th:field="${project.projectId}" th:value="${project.projectId ?: 0}"/>
 
-            <textarea type="text" placeholder="Enter Project Description" th:field="${project.description}"></textarea>
+                <!-- Project Name -->
+                <div class="col-md-12 mb-3">
+                    <label for="projectName" class="form-label">Project Name</label>
+                    <input type="text" id="projectName" placeholder="Enter Project Name" th:field="${project.name}" class="form-control" required>
+                </div>
 
-            <select th:field="*{employees}" multiple="multiple">
-                <option th:each="employee : ${allEmployees}"
-                        th:value="${employee.employeeId}"
-                        th:text="${employee.firstName}">
+                <!-- Project Stage -->
+                <div class="col-md-12 mb-3">
+                    <label for="projectStage" class="form-label">Project Stage</label>
+                    <select id="projectStage" th:field="${project.stage}" class="form-select" required>
+                        <option value="" disabled selected>Select Project Stage</option>
+                        <option th:value="NOTSTARTED">Not Started</option>
+                        <option th:value="INPROGRESS">In Progress</option>
+                        <option th:value="COMPLETED">Completed</option>
+                    </select>
+                </div>
 
-                </option>
-            </select>
-            <button type="submit">Create Project</button>
-        </form>
-    </div>
+                <!-- Project Description -->
+                <div class="col-md-12 mb-3">
+                    <label for="projectDescription" class="form-label">Project Description</label>
+                    <textarea id="projectDescription" placeholder="Enter Project Description" th:field="${project.description}" class="form-control" rows="4" required></textarea>
+                </div>
+
+                <!-- Employee Selection -->
+                <div class="col-md-12 mb-3">
+                    <label for="projectEmployees" class="form-label">Assign Employees</label>
+                    <select id="projectEmployees" th:field="*{employees}" class="form-select" multiple required>
+                        <option th:each="employee : ${allEmployees}" th:value="${employee.employeeId}" th:text="${employee.firstName}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-info px-5" type="submit">Create Project</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 </body>
 
 </html>

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -45,6 +46,22 @@ public class EmployeeController {
         employeeService.save(employee);
 
         // Use a redirect to prevent duplicate submissions
+        return "redirect:/employees";
+    }
+
+    @GetMapping("/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String displayEmployeeUpdateForm(@RequestParam("id") Long id, Model model) {
+        Employee theEmployee = employeeService.findByEmployeeId(id);
+        model.addAttribute("employee", theEmployee);
+        return "employees/new-employee";
+    }
+
+    @GetMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String deleteEmployee(@RequestParam("id") Long id) {
+        Employee theEmployee = employeeService.findByEmployeeId(id);
+        employeeService.delete(theEmployee);
         return "redirect:/employees";
     }
 }

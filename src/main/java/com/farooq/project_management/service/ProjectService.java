@@ -25,4 +25,12 @@ public class ProjectService {
     public List<ChartData> getProjectStatus() {
         return projectRepository.getProjectStatus();
     }
+
+    public Project findByProjectId(Long id) {
+        return projectRepository.findByProjectId(id);
+    }
+
+    public void delete(Project theProject) {
+        projectRepository.delete(theProject);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -56,6 +57,26 @@ public class ProjectController {
         // Use a redirect to prevent duplicate submissions
         return "redirect:/projects";
 
+    }
+
+    @GetMapping("/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String displayProjectUpdateForm(@RequestParam("id") Long id, Model model) {
+        Project theProject = projectService.findByProjectId(id);
+        model.addAttribute("project", theProject);
+
+        List<Employee> employees = employeeService.getAll();
+        model.addAttribute("allEmployees", employees);
+
+        return "projects/new-project";
+    }
+
+    @GetMapping("/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String deleteProject(@RequestParam("id") Long id) {
+        Project theProject = projectService.findByProjectId(id);
+        projectService.delete(theProject);
+        return "redirect:/projects";
     }
 
 }

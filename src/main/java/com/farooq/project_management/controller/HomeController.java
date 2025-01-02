@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class HomeController {
     EmployeeService employeeService;
 
     @GetMapping("/")
-    public String displayHome(Model model) throws JsonProcessingException {
+    public String displayHome(Model model, Principal principal) throws JsonProcessingException {
 
         model.addAttribute("envVersion", version);
 
@@ -50,6 +51,13 @@ public class HomeController {
         //Querying the database for employees
         List<EmployeeProject> employeesProjectCount = employeeService.getEmployeeProjects();
         model.addAttribute("employeesProjectCount", employeesProjectCount);
+
+        //Retrieved User Login Info
+        if (principal != null) {
+            model.addAttribute("username", principal.getName()); // Retrieves logged-in user's username
+        } else {
+            model.addAttribute("username", "Guest"); // Default value for non-logged-in users
+        }
 
         return "main/home";
     }

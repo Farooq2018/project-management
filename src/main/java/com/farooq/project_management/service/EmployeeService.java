@@ -25,4 +25,12 @@ public class EmployeeService {
     public List<EmployeeProject> getEmployeeProjects() {
         return employeeRepository.getEmployeeProjects();
     }
+
+    public Employee findByEmployeeId(Long id) {
+        return employeeRepository.findByEmployeeId(id);
+    }
+
+    public void delete(Employee theEmployee) {
+        employeeRepository.delete(theEmployee);
+    }
 }

@@ -2,38 +2,69 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Registration Form</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      background-color: #f4f7fc;
+    }
+    .form-container {
+      margin-top: 100px;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .form-heading {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+    .form-group input {
+      border-radius: 5px;
+      box-shadow: none;
+      margin-bottom: 15px;
+    }
+    .btn-primary {
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .form-control::placeholder {
+      color: #bbb;
+    }
+  </style>
 </head>
-<body style="background-color: #ededed;">
-<div style="background-color: #337ab7; height: 50px;"></div>
-<div class="container-fluid" style="margin-top: 30px;">
+<body>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-4 form-container">
+      <form autocomplete="off" th:action="@{/register/save}" th:object="${userAccount}" method="post" role="form">
+        <h3 class="form-heading">Registration Form</h3>
 
-  <div class="row col-lg-4 col-lg-offset-4" style="margin-top: 40px; background-color: #fff; padding: 20px; border: solid 1px #ddd;">
-    <form autocomplete="off" th:action="@{/register/save}" th:object="${userAccount}" method="post" class="form-signin" role="form">
-      <h3 class="form-signin-heading">Registration Form</h3>
-      <div class="form-group">
-        <div class="">
+        <!-- Username Input -->
+        <div class="form-group">
           <input type="text" th:field="*{username}" placeholder="User Name" class="form-control" />
         </div>
-      </div>
-      <div class="form-group">
-        <div class="">
-          <input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+
+        <!-- Email Input -->
+        <div class="form-group">
+          <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
         </div>
-      </div>
-      <div class="form-group">
-        <div class="">
+
+        <!-- Password Input -->
+        <div class="form-group">
           <input type="password" th:field="*{password}" placeholder="Password" class="form-control" />
         </div>
-      </div>
-      <div class="form-group">
-        <div class="">
+
+        <!-- Submit Button -->
+        <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">Register User</button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
 </body>

@@ -6,19 +6,43 @@
 <body>
 
 <nav th:replace="~{layouts :: navbar}"></nav>
+<br>
 
-<div class="container">
+<div class="container mt-5">
     <form th:action="@{/employees/save}" th:object="${employee}" method="post">
+        <div class="card shadow-lg p-4">
+            <h3 class="text-center mb-4">Employee Form</h3>
+            <div class="form-group row">
+                <!-- Hidden field for binding employeeId -->
+                <input type="hidden" th:field="${employee.employeeId}" th:value="${employee.employeeId ?: 0}"/>
 
-        <input type="text" placeholder="First Name" th:field="${employee.firstName}">
+                <!-- First Name -->
+                <div class="col-md-6 mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" id="firstName" placeholder="Enter First Name" th:field="${employee.firstName}" class="form-control" required>
+                </div>
 
-        <input type="text" placeholder="Last Name" th:field="${employee.lastName}">
+                <!-- Last Name -->
+                <div class="col-md-6 mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" id="lastName" placeholder="Enter Last Name" th:field="${employee.lastName}" class="form-control" required>
+                </div>
 
-        <input type="text" placeholder="Email Address" th:field="${employee.email}">
+                <!-- Email Address -->
+                <div class="col-md-12 mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter Email Address" th:field="${employee.email}" class="form-control" required>
+                </div>
 
-        <button type="submit">Create Employee</button>
+                <!-- Submit Button -->
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-info px-5" type="submit">Create Employee</button>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
+
 </body>
 
 </html>
