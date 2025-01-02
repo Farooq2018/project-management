@@ -2,6 +2,7 @@ package com.farooq.project_management.controller;
 
 import com.farooq.project_management.entity.Employee;
 import com.farooq.project_management.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class EmployeeController {
 
     @PostMapping("/save")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String createEmployee(Model model, Employee employee) {
+    public String createEmployee(Model model, @Valid Employee employee) {
         //save to the database using an employee CRUD repo
         employeeService.save(employee);
 
