@@ -2,10 +2,10 @@ package com.farooq.project_management.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,15 +16,23 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_generator")
     private Long projectId;
 
-    @NotNull
+    @NotBlank
     @Size(min = 5, max = 50)
     private String name;
 
     private String stage;
 
-    @NotNull
+    @NotBlank
     @Size(min = 10, max = 200)
     private String description;
+
+    @NotNull(message="date cannot be empty")
+    @PastOrPresent(message = "Start date must be in the past or present")
+    private Date startDate;
+
+    @NotNull(message="date cannot be empty")
+    @Future(message = "End date must be in the future")
+    private Date endDate;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
                 fetch = FetchType.LAZY)
@@ -89,5 +97,21 @@ public class Project {
             employees = new ArrayList<>();
         }
         employees.add(employee);
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }

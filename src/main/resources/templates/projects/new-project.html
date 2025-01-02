@@ -21,6 +21,9 @@
                 <div class="col-md-12 mb-3">
                     <label for="projectName" class="form-label">Project Name</label>
                     <input type="text" id="projectName" placeholder="Enter Project Name" th:field="${project.name}" class="form-control" required>
+                    <span style="color:red" th:if="${#fields.hasErrors('name')}"
+                          th:errors="${project.name}">
+			        </span>
                 </div>
 
                 <!-- Project Stage -->
@@ -38,6 +41,9 @@
                 <div class="col-md-12 mb-3">
                     <label for="projectDescription" class="form-label">Project Description</label>
                     <textarea id="projectDescription" placeholder="Enter Project Description" th:field="${project.description}" class="form-control" rows="4" required></textarea>
+                    <span style="color:red" th:if="${#fields.hasErrors('description')}"
+                          th:errors="${project.description}">
+			        </span>
                 </div>
 
                 <!-- Employee Selection -->
@@ -48,6 +54,25 @@
                         </option>
                     </select>
                 </div>
+                <!-- Project Start and End Date Selection -->
+                <div class="form-group row mb-4">
+                    <label for="dp3" class="col-md-3 col-form-label">Project Start Date:</label>
+                    <div class="col-md-9">
+                        <input id="dp3" type="text" class="form-control" placeholder="Select Start Date" th:field="${project.startDate}">
+                    </div>
+                </div>
+
+                <div class="form-group row mb-4">
+                    <label for="dp4" class="col-md-3 col-form-label">Project End Date:</label>
+                    <div class="col-md-9">
+                        <input id="dp4" type="text" class="form-control" placeholder="Select End Date" th:field="${project.endDate}">
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    $('#dp3').datepicker();
+                    $('#dp4').datepicker();
+                </script>
 
                 <!-- Submit Button -->
                 <div class="col-md-12 text-center">

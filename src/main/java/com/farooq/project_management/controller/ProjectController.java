@@ -1,13 +1,18 @@
 package com.farooq.project_management.controller;
 
+import com.farooq.project_management.dto.TimeChartData;
 import com.farooq.project_management.entity.Employee;
 import com.farooq.project_management.entity.Project;
 import com.farooq.project_management.service.EmployeeService;
 import com.farooq.project_management.service.ProjectService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +55,10 @@ public class ProjectController {
 
     @PostMapping("/save")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String createProject(Project project, Model model) {
+    public String createProject(@Valid Project project, Model model, Errors errors) {
+
+        if (errors.hasErrors())
+            return "/projects/new-project";
 
         projectService.save(project);
 
@@ -79,4 +87,15 @@ public class ProjectController {
         return "redirect:/projects";
     }
 
+    @GetMapping("/timelines")
+    public String displayProjectTimeline(Model model) throws JsonProcessingException {
+
+        List<TimeChartData> timeChartData = projectService.getTimeData();
+        //Convert projectData object into json structure for use in Javascript
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = objectMapper.writeValueAsString(timeChartData);
+        model.addAttribute("projectTimeList", jsonString);
+
+        return "projects/project-timelines";
+    }
 }

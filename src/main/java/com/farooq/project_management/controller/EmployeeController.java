@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,10 @@ public class EmployeeController {
 
     @PostMapping("/save")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String createEmployee(Model model, @Valid Employee employee) {
+    public String createEmployee(Model model, @Valid Employee employee, Errors errors) {
+
+        if (errors.hasErrors())
+            return "employees/new-employee";
         //save to the database using an employee CRUD repo
         employeeService.save(employee);
 

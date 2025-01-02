@@ -20,18 +20,27 @@
                 <div class="col-md-6 mb-3">
                     <label for="firstName" class="form-label">First Name</label>
                     <input type="text" id="firstName" placeholder="Enter First Name" th:field="${employee.firstName}" class="form-control" required>
+                    <span style="color:red" th:if="${#fields.hasErrors('firstName')}"
+                          th:errors="${employee.firstName}">
+                    </span>
                 </div>
 
                 <!-- Last Name -->
                 <div class="col-md-6 mb-3">
                     <label for="lastName" class="form-label">Last Name</label>
                     <input type="text" id="lastName" placeholder="Enter Last Name" th:field="${employee.lastName}" class="form-control" required>
+                    <span style="color:red" th:if="${#fields.hasErrors('lastName')}"
+                          th:errors="${employee.lastName}">
+			        </span>
                 </div>
 
                 <!-- Email Address -->
                 <div class="col-md-12 mb-3">
                     <label for="email" class="form-label">Email Address</label>
                     <input type="email" id="email" placeholder="Enter Email Address" th:field="${employee.email}" class="form-control" required>
+                    <span style="color:red" th:if="${#fields.hasErrors('email')}"
+                          th:errors="${employee.email}">
+			        </span>
                 </div>
 
                 <!-- Submit Button -->

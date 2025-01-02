@@ -1,6 +1,7 @@
 package com.farooq.project_management.service;
 
 import com.farooq.project_management.dto.ChartData;
+import com.farooq.project_management.dto.TimeChartData;
 import com.farooq.project_management.entity.Project;
 import com.farooq.project_management.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class ProjectService {
         return projectRepository.getProjectStatus();
     }
 
+    public List<TimeChartData> getTimeData() {
+        return projectRepository.getTimeData();
+    }
     public Project findByProjectId(Long id) {
         return projectRepository.findByProjectId(id);
     }
