@@ -1,6 +1,9 @@
 package com.farooq.project_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +16,14 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_generator")
     private Long projectId;
 
+    @NotNull
+    @Size(min = 5, max = 50)
     private String name;
 
     private String stage;
 
+    @NotNull
+    @Size(min = 10, max = 200)
     private String description;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
@@ -24,6 +31,7 @@ public class Project {
     @JoinTable(name = "project_employee",
                 joinColumns = @JoinColumn(name = "project_id"),
                 inverseJoinColumns = @JoinColumn(name = "employee_id"))
+    @JsonIgnore
     private List<Employee> employees;
 
     public Project() {

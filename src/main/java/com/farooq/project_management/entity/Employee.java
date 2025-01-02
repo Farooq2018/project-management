@@ -1,6 +1,11 @@
 package com.farooq.project_management.entity;
 
+import com.farooq.project_management.validator.UniqueValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -12,8 +17,17 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_generator")
     private Long employeeId;
 
+    @NotNull
+    @Size(min = 2, max = 50)
     private String firstName;
+
+    @NotNull
+    @Size(min = 1, max = 50)
     private String lastName;
+
+    @NotNull
+    @Email
+    @UniqueValue
     private String email;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
@@ -21,6 +35,7 @@ public class Employee {
     @JoinTable(name = "project_employee",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
+    @JsonIgnore
     private List<Project> projects;
 
     public Employee() {
