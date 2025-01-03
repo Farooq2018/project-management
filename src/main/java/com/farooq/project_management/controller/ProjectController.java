@@ -31,7 +31,7 @@ public class ProjectController {
     EmployeeService employeeService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public String displayProjects(Model model) {
         List<Project> projects = projectService.getAll();
 
@@ -41,7 +41,7 @@ public class ProjectController {
     }
 
     @GetMapping("/new")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String displayProjectForm(Model model) {
 
         Project aProject = new Project();
@@ -54,7 +54,7 @@ public class ProjectController {
     }
 
     @PostMapping("/save")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String createProject(@Valid Project project, Model model, Errors errors) {
 
         if (errors.hasErrors())
@@ -68,7 +68,7 @@ public class ProjectController {
     }
 
     @GetMapping("/update")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String displayProjectUpdateForm(@RequestParam("id") Long id, Model model) {
         Project theProject = projectService.findByProjectId(id);
         model.addAttribute("project", theProject);
@@ -80,7 +80,7 @@ public class ProjectController {
     }
 
     @GetMapping("/delete")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteProject(@RequestParam("id") Long id) {
         Project theProject = projectService.findByProjectId(id);
         projectService.delete(theProject);
@@ -88,6 +88,7 @@ public class ProjectController {
     }
 
     @GetMapping("/timelines")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String displayProjectTimeline(Model model) throws JsonProcessingException {
 
         List<TimeChartData> timeChartData = projectService.getTimeData();

@@ -23,7 +23,7 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     public String displayEmployees(Model model) {
         List<Employee> employees = employeeService.getAll();
 
@@ -33,7 +33,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/new")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String displayEmployeeForm(Model model) {
 
         Employee anEmployee = new Employee();
@@ -42,7 +42,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/save")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String createEmployee(Model model, @Valid Employee employee, Errors errors) {
 
         if (errors.hasErrors())
@@ -55,7 +55,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/update")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String displayEmployeeUpdateForm(@RequestParam("id") Long id, Model model) {
         Employee theEmployee = employeeService.findByEmployeeId(id);
         model.addAttribute("employee", theEmployee);
@@ -63,7 +63,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/delete")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteEmployee(@RequestParam("id") Long id) {
         Employee theEmployee = employeeService.findByEmployeeId(id);
         employeeService.delete(theEmployee);

@@ -9,8 +9,7 @@ import java.util.Set;
 public class UserAccount {
 
     @Id
-    @SequenceGenerator(name = "user_account_generator", sequenceName = "user_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_account_generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
 
