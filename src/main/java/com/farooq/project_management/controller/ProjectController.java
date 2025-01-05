@@ -44,8 +44,8 @@ public class ProjectController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public String displayProjectForm(Model model) {
 
-        Project aProject = new Project();
-        model.addAttribute("project", aProject);
+        Project theProject = new Project();
+        model.addAttribute("project", theProject);
 
         List<Employee> employees = employeeService.getAll();
         model.addAttribute("allEmployees", employees);
@@ -70,6 +70,7 @@ public class ProjectController {
     @GetMapping("/update")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String displayProjectUpdateForm(@RequestParam("id") Long id, Model model) {
+
         Project theProject = projectService.findByProjectId(id);
         model.addAttribute("project", theProject);
 

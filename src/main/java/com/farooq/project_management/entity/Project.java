@@ -17,21 +17,19 @@ public class Project {
     private Long projectId;
 
     @NotBlank
-    @Size(min = 5, max = 50)
+    @Size(min = 2, max = 50)
     private String name;
 
     private String stage;
 
     @NotBlank
-    @Size(min = 10, max = 200)
+    @Size(min = 5, max = 200)
     private String description;
 
     @NotNull(message="date cannot be empty")
-    @PastOrPresent(message = "Start date must be in the past or present")
     private Date startDate;
 
     @NotNull(message="date cannot be empty")
-    @Future(message = "End date must be in the future")
     private Date endDate;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},
