@@ -138,7 +138,7 @@ Farooq2018-project-management/
 - **Spring Boot**: Framework for building the backend
 - **Maven**: Build automation tool
 - **Thymeleaf**: Template engine for the frontend
-- **MySQL**: Database management
+- **PostgreSQL**: Database management
 - **HTML/CSS/JavaScript**: Frontend technologies
 
 ## Running the Application
