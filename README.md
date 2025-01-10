@@ -1,1 +1,2 @@
 # project-management
+This project is a Java-based web application designed to manage projects, employees, and user accounts. It includes a REST API and a web-based user interface, with roles and security features integrated. The application likely allows for functionalities like tracking project progress, assigning employees to projects, and managing user accounts with different roles. The project also includes database integration, error handling, and automated tests for its functionality.
