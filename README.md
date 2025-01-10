@@ -23,7 +23,7 @@ Project Management is a comprehensive application designed to help manage projec
 ### Prerequisites
 - Java 8 or higher
 - Maven 3.6 or higher
-- MySQL or any other relational database
+- PostgreSQL or any other relational database
 
 ### Installation
 1. Clone the repository:
